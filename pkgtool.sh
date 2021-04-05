@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2020 Lucio Andrés Illanes Albornoz <lucio@lucioillanes.de>
+# Copyright (c) 2020, 2021 Lucio Andrés Illanes Albornoz <lucio@lucioillanes.de>
 #
 
 pkgtoolp_info() {
