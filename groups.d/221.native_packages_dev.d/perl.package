@@ -6,7 +6,7 @@
 : ${PKG_PERL_CONFIGURE_ARGS:="-A ccflags=-I${PREFIX_NATIVE}/include -Duseshrplib -Darchname=${DEFAULT_TARGET} -Darchlib=/usr/lib/perl5/${PKG_PERL_VERSION}/${DEFAULT_TARGET} -Dsitearch=/usr/lib/perl5/site_perl/${PKG_PERL_VERSION}/${DEFAULT_TARGET} --sysroot=${PREFIX_NATIVE} --target=${DEFAULT_TARGET}"};
 : ${PKG_PERL_CFLAGS_CONFIGURE_EXTRA:="-std=gnu99"};
 : ${PKG_PERL_ENV_VARS_EXTRA:="TARGET=${DEFAULT_TARGET}"};
-: ${PKG_PERL_MAKEFLAGS_BUILD:="PERL_ARCHIVE_AFTER=${PREFIX}/tmp/perl-native-${DEFAULT_TARGET}/perl-${PKG_PERL_VERSION}/libperl.so OTHERLDFLAGS=--sysroot=${PREFIX_NATIVE}"};
+: ${PKG_PERL_MAKEFLAGS_BUILD:="PERL_ARCHIVE_AFTER=${BUILD_WORKDIR}/perl-native-${DEFAULT_TARGET}/perl-${PKG_PERL_VERSION}/libperl.so OTHERLDFLAGS=--sysroot=${PREFIX_NATIVE}"};
 : ${PKG_PERL_MAKEFLAGS_PARALLELISE:="-j1"};
 : ${PKG_PERL_INSTALL_FILES_V2:="+%[_subdir]/libperl.so=lib/libperl.so"};
 : ${PKG_PERL_SUBDIR:=perl-${PKG_PERL_VERSION}};
