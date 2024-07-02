@@ -1,0 +1,8 @@
+: ${PKG_IPERF_DEPENDS:="libressl"};
+: ${PKG_IPERF_SHA256SUM:=84404ca8431b595e86c473d8f23d8bb102810001f15feaf610effd3b318788aa};
+: ${PKG_IPERF_VERSION:=3.17.1};
+: ${PKG_IPERF_URL:=https://github.com/esnet/iperf/releases/download/${PKG_IPERF_VERSION}/iperf-${PKG_IPERF_VERSION}.tar.gz};
+
+ex_pkg_register "iperf" "${RTL_FILEOP_SOURCE_FNAME}" "native_packages";
+
+# vim:filetype=sh textwidth=0
