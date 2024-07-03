@@ -4,6 +4,7 @@
 : ${PKG_PERL_HOST_CONFIGURE:=perl-${PKG_PERL_HOST_VERSION}/Configure};
 : ${PKG_PERL_HOST_CONFIGURE_ARGS:="-Dprefix=${PREFIX} -d -e"};
 : ${PKG_PERL_HOST_IN_TREE:=1};
+: ${PKG_PERL_HOST_DISABLED:=1};
 
 ex_pkg_register "perl_host" "${RTL_FILEOP_SOURCE_FNAME}" "host_deps";
 
