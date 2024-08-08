@@ -1,9 +1,10 @@
 : ${PKG_BAS_DEPENDS:="ncurses"};
-: ${PKG_BAS_SHA256SUM:=ec45efa90aaa7f15647fe7898fa0789ba26dc8e10b7ecf8e049b1310f626b884};
-: ${PKG_BAS_VERSION:=2.6};
+: ${PKG_BAS_SHA256SUM:=8cf0b8205502817b205b1d49a32cefe6320697b26ce5b732ce496ef3b9e0c920};
+: ${PKG_BAS_VERSION:=2.7};
 : ${PKG_BAS_URL:=www.moria.de/~michael/bas/bas-${PKG_BAS_VERSION}.tar.gz};
 : ${PKG_BAS_IN_TREE:=1};
 : ${PKG_BAS_FORCE_AUTORECONF:=1};
+: ${PKG_BAS_DISABLED:=1};
 
 ex_pkg_register "bas" "${RTL_FILEOP_SOURCE_FNAME}" "native_packages";
 
