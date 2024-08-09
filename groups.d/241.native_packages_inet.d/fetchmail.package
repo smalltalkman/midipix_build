@@ -1,8 +1,8 @@
-: ${PKG_FETCHMAIL_DEPENDS:="libressl"};
-: ${PKG_FETCHMAIL_SHA256SUM:=c7500bed3b0bb85722f7cf2d980e74a879ac57b13cfd225d278179d671c0f5e8};
-: ${PKG_FETCHMAIL_VERSION:=6.4.0.beta4};
-: ${PKG_FETCHMAIL_URL:=http://krusty.dt.e-technik.tu-dortmund.de/~ma/fetchmail/fetchmail-${PKG_FETCHMAIL_VERSION}.tar.xz};
-: ${PKG_FETCHMAIL_CONFIGURE_ARGS_EXTRA:="--with-kerberos5=no --with-kerberos=no --with-ssl=${PREFIX_NATIVE}"};
+: ${PKG_FETCHMAIL_DEPENDS:="wolfssl"};
+: ${PKG_FETCHMAIL_SHA256SUM:=75109a1f307b538155fa05f5ef298e8298cb4deae95aed24c16b38d36ff0a186};
+: ${PKG_FETCHMAIL_VERSION:=6.4.39};
+: ${PKG_FETCHMAIL_URL:=https://fossies.org/linux/misc/fetchmail-${PKG_FETCHMAIL_VERSION}.tar.xz};
+: ${PKG_FETCHMAIL_CONFIGURE_ARGS_EXTRA:="PYTHON=${PREFIX}/bin/python3 WOLFSSL_TRUST_FILE=/etc/ssl/cert.pem --with-kerberos5=no --with-kerberos=no --with-wolfssl=${PREFIX_NATIVE}"};
 
 ex_pkg_register "fetchmail" "${RTL_FILEOP_SOURCE_FNAME}" "native_packages";
 
