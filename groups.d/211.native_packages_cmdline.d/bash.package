@@ -1,6 +1,6 @@
 : ${PKG_BASH_DEPENDS:="ncurses"};
-: ${PKG_BASH_SHA256SUM:=c8e31bdc59b69aaffc5b36509905ba3e5cbb12747091d27b4b977f078560d5b8};
-: ${PKG_BASH_VERSION:=5.2.21};
+: ${PKG_BASH_SHA256SUM:=d3ef80d2b67d8cbbe4d3265c63a72c46f9b278ead6e0e06d61801b58f23f50b5};
+: ${PKG_BASH_VERSION:=5.2.32};
 : ${PKG_BASH_URL:=https://ftp.gnu.org/gnu/bash/bash-${PKG_BASH_VERSION}.tar.gz};
 : ${PKG_BASH_CONFIGURE_ARGS_EXTRA:="--without-bash-malloc --with-curses"};
 : ${PKG_BASH_MAKEFLAGS_PARALLELISE:="-j1"};
