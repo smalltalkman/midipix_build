@@ -5,6 +5,7 @@
 : ${PKG_CMAKE_HOST_CONFIGURE_TYPE:="cmake"};
 : ${PKG_CMAKE_HOST_CMAKE_ARGS_EXTRA:="
 	-DCURSES_NCURSES_LIBRARY=${PREFIX}/lib/libncurses.so
+	-DCMAKE_USE_OPENSSL:BOOL=OFF
 	-DLIBMD_LIBRARY=
 "};
 : ${PKG_CMAKE_HOST_INSTALL_FILES_V2:="+../cmake-${PKG_CMAKE_HOST_VERSION}/Modules/Platform/BSDOS.cmake=share/cmake-${PKG_CMAKE_HOST_VERSION%.*}/Modules/Platform/Midipix.cmake"};
