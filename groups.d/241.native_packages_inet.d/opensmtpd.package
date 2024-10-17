@@ -1,6 +1,6 @@
 : ${PKG_OPENSMTPD_DEPENDS:="libevent libressl libz musl_fts"};
-: ${PKG_OPENSMTPD_SHA256SUM:=fccdfbc5b98d150012bf9ccdef51752c18a862ed10888b56289826b83a2b5a4e};
-: ${PKG_OPENSMTPD_VERSION:=7.3.0p2};
+: ${PKG_OPENSMTPD_SHA256SUM:=84f5c1393c0c1becc72ceea971e0abd7075b2ca7e4e1f8909b83edfd8de0c39c};
+: ${PKG_OPENSMTPD_VERSION:=7.5.0p0};
 : ${PKG_OPENSMTPD_URL:=https://www.opensmtpd.org/archives/opensmtpd-${PKG_OPENSMTPD_VERSION}.tar.gz}
 : ${PKG_OPENSMTPD_CONFIGURE_ARGS_EXTRA:="--with-maildir=/var/mail --with-libz=${PREFIX_NATIVE} --with-libevent=${PREFIX_NATIVE}"};
 : ${PKG_OPENSMTPD_IN_TREE:=1};
