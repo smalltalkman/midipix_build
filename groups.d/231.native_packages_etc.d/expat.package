@@ -1,5 +1,5 @@
-: ${PKG_EXPAT_SHA256SUM:=274db254a6979bde5aad404763a704956940e465843f2a9bd9ed7af22e2c0efc};
-: ${PKG_EXPAT_VERSION:=2.6.3};
+: ${PKG_EXPAT_SHA256SUM:=a695629dae047055b37d50a0ff4776d1d45d0a4c842cf4ccee158441f55ff7ee};
+: ${PKG_EXPAT_VERSION:=2.6.4};
 : ${PKG_EXPAT_URL:=http://download.openpkg.org/components/cache/expat/expat-${PKG_EXPAT_VERSION}.tar.xz};
 : ${PKG_EXPAT_CONFIGURE_ARGS_EXTRA:="--with-getrandom --with-sys-getrandom --without-docbook --without-tests"};
 
