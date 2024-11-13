@@ -1,6 +1,6 @@
 : ${PKG_WGET_DEPENDS:="gnutls gpgme libz libidn2 libpsl libiconv libunistring"};
-: ${PKG_WGET_SHA256SUM:=fa2dc35bab5184ecbc46a9ef83def2aaaa3f4c9f3c97d4bd19dcb07d4da637de};
-: ${PKG_WGET_VERSION:=1.24.5};
+: ${PKG_WGET_SHA256SUM:=766e48423e79359ea31e41db9e5c289675947a7fcf2efdcedb726ac9d0da3784};
+: ${PKG_WGET_VERSION:=1.25.0};
 : ${PKG_WGET_URL:=https://ftp.gnu.org/gnu/wget/wget-${PKG_WGET_VERSION}.tar.gz};
 : ${PKG_WGET_CONFIGURE_ARGS_EXTRA:="--with-ssl=gnutls --with-gpgme-prefix=${PREFIX_NATIVE}"};
 : ${PKG_WGET_CFLAGS_CONFIGURE_EXTRA:=-std=gnu99};
