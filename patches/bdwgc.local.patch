@@ -33,8 +33,8 @@ diff -ru bdwgc.orig/include/private/gcconfig.h bdwgc/include/private/gcconfig.h
  #  define mach_type_known
  #elif (defined(__i386__) || defined(i386) || defined(__X86__)) \
      && (defined(ANY_BSD) || defined(DARWIN) || defined(EMBOX)  \
--        || defined(LINUX) || defined(QNX))
-+        || defined(LINUX) || defined(QNX) || defined(MIDIPIX))
+-        || defined(LINUX) || defined(QNX) || defined(SERENITY))
++        || defined(LINUX) || defined(QNX) || defined(SERENITY) || defined(MIDIPIX))
  #  define I386
  #  define mach_type_known
  #elif (defined(__ia64) || defined(__ia64__)) && defined(LINUX)
@@ -42,8 +42,8 @@ diff -ru bdwgc.orig/include/private/gcconfig.h bdwgc/include/private/gcconfig.h
  #elif (defined(__x86_64) || defined(__x86_64__) || defined(__amd64__) \
         || defined(__X86_64__))                                        \
      && (defined(ANY_BSD) || defined(COSMO) || defined(DARWIN)         \
--        || defined(LINUX) || defined(QNX))
-+        || defined(LINUX) || defined(QNX) || defined(MIDIPIX))
+-        || defined(LINUX) || defined(QNX) || defined(SERENITY))
++        || defined(LINUX) || defined(QNX) || defined(SERENITY) || defined(MIDIPIX))
  #  define X86_64
  #  define mach_type_known
  #endif
@@ -65,8 +65,8 @@ diff -ru bdwgc.orig/include/private/gcconfig.h bdwgc/include/private/gcconfig.h
  #if defined(AIX) || defined(ANY_BSD) || defined(BSD) || defined(COSMO)     \
      || defined(DARWIN) || defined(DGUX) || defined(HAIKU) || defined(HPUX) \
      || defined(HURD) || defined(IRIX5) || defined(LINUX) || defined(OSF1)  \
--    || defined(QNX) || defined(SVR4)
-+    || defined(QNX) || defined(SVR4) || defined(MIDIPIX)
+-    || defined(QNX) || defined(SERENITY) || defined(SVR4)
++    || defined(QNX) || defined(SERENITY) || defined(SVR4) || defined(MIDIPIX)
  #  define UNIX_LIKE /* Basic Unix-like system calls work.   */
  #endif
  
