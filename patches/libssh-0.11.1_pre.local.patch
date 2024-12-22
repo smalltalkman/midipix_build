@@ -1,0 +1,44 @@
+diff -ru libssh-0.11.1.orig/CMakeLists.txt libssh-0.11.1/CMakeLists.txt
+--- libssh-0.11.1.orig/CMakeLists.txt	2024-08-29 15:15:05.000000000 +0200
++++ libssh-0.11.1/CMakeLists.txt	2024-12-22 20:13:00.884204019 +0100
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 3.12.0)
++cmake_minimum_required(VERSION 3.7.0)
+ 
+ # Specify search path for CMake modules to be loaded by include()
+ # and find_package()
+@@ -75,13 +75,6 @@
+     endif (NOT NACL_FOUND)
+ endif (WITH_NACL)
+ 
+-# Disable symbol versioning in non UNIX platforms
+-if (UNIX)
+-    find_package(ABIMap 0.3.1)
+-else (UNIX)
+-    set(WITH_SYMBOL_VERSIONING OFF)
+-endif (UNIX)
+-
+ # config.h checks
+ include(ConfigureChecks.cmake)
+ configure_file(config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
+diff -ru libssh-0.11.1.orig/libssh.pc.cmake libssh-0.11.1/libssh.pc.cmake
+--- libssh-0.11.1.orig/libssh.pc.cmake	2024-01-12 14:12:29.000000000 +0100
++++ libssh-0.11.1/libssh.pc.cmake	2024-12-22 20:16:30.103523223 +0100
+@@ -6,5 +6,5 @@
+ Name: @PROJECT_NAME@
+ Description: The SSH Library
+ Version: @PROJECT_VERSION@
+-Libs: -L${libdir} -lssh
++Libs: -lssh
+ Cflags: -I${includedir}
+diff -ru libssh-0.11.1.orig/src/threads/libgcrypt.c libssh-0.11.1/src/threads/libgcrypt.c
+--- libssh-0.11.1.orig/src/threads/libgcrypt.c	2024-01-02 16:48:48.000000000 +0100
++++ libssh-0.11.1/src/threads/libgcrypt.c	2024-12-22 20:13:00.884204019 +0100
+@@ -26,7 +26,6 @@
+ 
+ #if (GCRYPT_VERSION_NUMBER >= 0x010600)
+ /* libgcrypt >= 1.6 does not support custom callbacks */
+-GCRY_THREAD_OPTION_PTHREAD_IMPL;
+ 
+ int crypto_thread_init(struct ssh_threads_callbacks_struct *user_callbacks)
+ {
