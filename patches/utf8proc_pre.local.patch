@@ -1,0 +1,9 @@
+diff -ru utf8proc.orig/CMakeLists.txt utf8proc/CMakeLists.txt
+--- utf8proc.orig/CMakeLists.txt	2024-12-30 15:46:09.247803997 +0100
++++ utf8proc/CMakeLists.txt	2024-12-30 15:47:14.637465265 +0100
+@@ -1,4 +1,4 @@
+-cmake_minimum_required (VERSION 3.10)
++cmake_minimum_required (VERSION 3.7)
+ 
+ include (utils.cmake)
+ 
