@@ -1,8 +1,8 @@
 : ${PKG_PCRE_DEPENDS:="bzip2 libz"};
 : ${PKG_PCRE_SHA256SUM:=0b8e7465dc5e98c757cc3650a20a7843ee4c3edf50aaf60bb33fd879690d2c73};
-: ${PKG_PCRE_VERSION:=8.45};
-: ${PKG_PCRE_URL:="https://osdn.net/frs/g_redir.php?m=gigenet&f=pcre%2Fpcre%2F8.43%2Fpcre-${PKG_PCRE_HOST_VERSION}.tar.gz"};
-: ${PKG_PCRE_FNAME:="pcre-${PKG_PCRE_HOST_VERSION}.tar.gz"};
+: ${PKG_PCRE_VERSION:=8.43};
+: ${PKG_PCRE_URL:="https://midipix.org/mirror/pcre/pcre-${PKG_PCRE_VERSION}.tar.gz"};
+: ${PKG_PCRE_FNAME:="pcre-${PKG_PCRE_VERSION}.tar.gz"};
 
 ex_pkg_register "pcre" "${RTL_FILEOP_SOURCE_FNAME}" "native_packages";
 
