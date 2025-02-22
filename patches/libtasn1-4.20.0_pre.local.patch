@@ -1,8 +1,8 @@
-diff -ru libtasn1-4.17.0.orig/configure libtasn1-4.17.0/configure
---- libtasn1-4.17.0.orig/configure	2021-05-13 19:09:31.000000000 +0200
-+++ libtasn1-4.17.0/configure	2021-12-07 16:59:10.538374562 +0100
-@@ -12844,6 +12844,16 @@
-   dynamic_linker='GNU/Linux ld.so'
+diff -ru libtasn1-4.20.0.orig/configure libtasn1-4.20.0/configure
+--- libtasn1-4.20.0.orig/configure	2025-02-01 18:11:54.000000000 +0100
++++ libtasn1-4.20.0/configure	2025-02-22 12:59:57.084712503 +0100
+@@ -14827,6 +14827,16 @@
+   hardcode_libdir_flag_spec='-L$libdir'
    ;;
  
 +midipix*)
@@ -15,18 +15,18 @@ diff -ru libtasn1-4.17.0.orig/configure libtasn1-4.17.0/configure
 +  shlibpath_var=LD_LIBRARY_PATH
 +  ;;
 +
- netbsdelf*-gnu)
-   version_type=linux
-   need_lib_prefix=no
-diff -ru libtasn1-4.17.0.orig/Makefile.in libtasn1-4.17.0/Makefile.in
---- libtasn1-4.17.0.orig/Makefile.in	2021-05-13 19:09:33.000000000 +0200
-+++ libtasn1-4.17.0/Makefile.in	2021-12-07 17:00:22.742376855 +0100
-@@ -564,7 +564,7 @@
+ # This must be glibc/ELF.
+ linux* | k*bsd*-gnu | kopensolaris*-gnu | gnu*)
+   version_type=linux # correct to gnu/linux during the next big refactor
+diff -ru libtasn1-4.20.0.orig/Makefile.in libtasn1-4.20.0/Makefile.in
+--- libtasn1-4.20.0.orig/Makefile.in	2025-02-01 18:11:54.000000000 +0100
++++ libtasn1-4.20.0/Makefile.in	2025-02-22 13:00:37.817521139 +0100
+@@ -1578,7 +1578,7 @@
  	windows/test-tree/test-tree.vcproj windows/libtasn14win.mk \
- 	cfg.mk maint.mk CONTRIBUTING.md README.md \
+ 	cfg.mk maint.mk CONTRIBUTING.md README.md COPYING.LESSERv2 \
  	$(top_srcdir)/.version
--SUBDIRS = lib src fuzz tests $(am__append_1)
-+SUBDIRS = lib src fuzz $(am__append_1)
+-SUBDIRS = lib src $(am__append_1) fuzz tests
++SUBDIRS = lib src $(am__append_1) fuzz
  @CODE_COVERAGE_ENABLED_TRUE@GITIGNOREFILES := $(GITIGNOREFILES) $(CODE_COVERAGE_OUTPUT_FILE) $(CODE_COVERAGE_OUTPUT_DIRECTORY)
  @CODE_COVERAGE_ENABLED_TRUE@code_coverage_v_lcov_cap = $(code_coverage_v_lcov_cap_$(V))
  @CODE_COVERAGE_ENABLED_TRUE@code_coverage_v_lcov_cap_ = $(code_coverage_v_lcov_cap_$(AM_DEFAULT_VERBOSITY))
