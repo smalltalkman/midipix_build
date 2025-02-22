@@ -1,6 +1,6 @@
-: ${PKG_LIBSNDFILE_DEPENDS:="mpg123 lame libflac libogg libzip opus sqlite3"};
-: ${PKG_LIBSNDFILE_SHA256SUM:=0e30e7072f83dc84863e2e55f299175c7e04a5902ae79cfb99d4249ee8f6d60a};
-: ${PKG_LIBSNDFILE_VERSION:=1.2.0};
+: ${PKG_LIBSNDFILE_DEPENDS:="mpg123 lame flac libogg libzip opus sqlite3"};
+: ${PKG_LIBSNDFILE_SHA256SUM:=3799ca9924d3125038880367bf1468e53a1b7e3686a934f098b7e1d286cdb80e};
+: ${PKG_LIBSNDFILE_VERSION:=1.2.2};
 : ${PKG_LIBSNDFILE_URL:=https://github.com/libsndfile/libsndfile/releases/download/${PKG_LIBSNDFILE_VERSION}/libsndfile-${PKG_LIBSNDFILE_VERSION}.tar.xz};
 : ${PKG_LIBSNDFILE_CONFIGURE_ARGS_EXTRA:="--disable-alsa"};
 : ${PKG_LIBSNDFILE_CFLAGS_CONFIGURE_EXTRA:="-I${PREFIX_NATIVE}/include/w32api.ports -DWINAPI_ANSI_DEFAULT"};
