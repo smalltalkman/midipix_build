@@ -1,0 +1,9 @@
+: ${PKG_FLAC_DEPENDS:="libogg libiconv"};
+: ${PKG_FLAC_SHA256SUM:=f2c1c76592a82ffff8413ba3c4a1299b6c7ab06c734dee03fd88630485c2b920};
+: ${PKG_FLAC_VERSION:=1.5.0};
+: ${PKG_FLAC_URL:=https://ftp.osuosl.org/pub/xiph/releases/flac/flac-${PKG_FLAC_VERSION}.tar.xz};
+: ${PKG_FLAC_CONFIGURE_ARGS_EXTRA:="--with-ogg=yes --disable-stack-smash-protection"};
+
+ex_pkg_register "flac" "${RTL_FILEOP_SOURCE_FNAME}" "native_packages";
+
+# vim:filetype=sh textwidth=0
