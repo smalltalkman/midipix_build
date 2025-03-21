@@ -1,6 +1,6 @@
 : ${PKG_LIBARCHIVE_DEPENDS:="libxml2 xz libiconv bzip2 libmd"};
-: ${PKG_LIBARCHIVE_SHA256SUM:=879acd83c3399c7caaee73fe5f7418e06087ab2aaf40af3e99b9e29beb29faee};
-: ${PKG_LIBARCHIVE_VERSION:=3.7.7};
+: ${PKG_LIBARCHIVE_SHA256SUM:=32a51747527e01f50d0e06abad0fe0b95b6fa40b8fc173c48b8bd97d0f743330};
+: ${PKG_LIBARCHIVE_VERSION:=3.7.8};
 : ${PKG_LIBARCHIVE_URL:=https://www.libarchive.de/downloads/libarchive-${PKG_LIBARCHIVE_VERSION}.tar.xz};
 : ${PKG_LIBARCHIVE_CONFIG_CACHE_LOCAL:="ac_cv_func_lstat_dereferences_slashed_symlink=yes"};
 : ${PKG_LIBARCHIVE_LIBTOOL:=rlibtool};
