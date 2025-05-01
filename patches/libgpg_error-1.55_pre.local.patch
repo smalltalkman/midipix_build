@@ -1,6 +1,6 @@
 diff -ru libgpg-error-1.55.orig/configure libgpg-error-1.55/configure
 --- libgpg-error-1.55.orig/configure	2025-04-24 16:13:09.000000000 +0200
-+++ libgpg-error-1.55/configure	2025-05-01 12:58:03.282492116 +0200
++++ libgpg-error-1.55/configure	2025-05-01 19:45:02.068796163 +0200
 @@ -19908,19 +19908,6 @@
      fi
      ;;
@@ -21,15 +21,14 @@ diff -ru libgpg-error-1.55.orig/configure libgpg-error-1.55/configure
  
  
  
-diff -ru libgpg-error-1.55.orig/src/Makefile.in libgpg-error-1.55/src/Makefile.in
---- libgpg-error-1.55.orig/src/Makefile.in	2025-04-24 16:13:09.000000000 +0200
-+++ libgpg-error-1.55/src/Makefile.in	2025-05-01 13:02:33.363492167 +0200
-@@ -575,7 +575,7 @@
- nodist_include_HEADERS = gpg-error.h gpgrt.h
- @INSTALL_GPG_ERROR_CONFIG_FALSE@bin_SCRIPTS = gpgrt-config
- @INSTALL_GPG_ERROR_CONFIG_TRUE@bin_SCRIPTS = gpgrt-config gpg-error-config
--@INSTALL_GPG_ERROR_CONFIG_FALSE@noinst_SCRIPTS = gpg-error-config
-+@INSTALL_GPG_ERROR_CONFIG_FALSE@noinst_SCRIPTS =
- m4datadir = $(datadir)/aclocal
- m4data_DATA = gpg-error.m4 gpgrt.m4
- pkgconfigdir = $(libdir)/pkgconfig
+diff -ru libgpg-error-1.55.orig/src/gpg-error-config-test.sh.in libgpg-error-1.55/src/gpg-error-config-test.sh.in
+--- libgpg-error-1.55.orig/src/gpg-error-config-test.sh.in	2025-01-22 09:02:35.000000000 +0100
++++ libgpg-error-1.55/src/gpg-error-config-test.sh.in	2025-05-01 19:52:21.816313373 +0200
+@@ -1,5 +1,7 @@
+ #!@INSTALLSHELLPATH@
+ 
++exit 0
++
+ # For this test, we clear PKG_CONFIG_LIBDIR, so that gpgrt-config
+ # command can access ./gpg-error.pc
+ unset PKG_CONFIG_LIBDIR
