@@ -7,6 +7,7 @@
 	-DCURSES_NCURSES_LIBRARY=${PREFIX}/lib/libncurses.so
 	-DCMAKE_USE_OPENSSL:BOOL=OFF
 	-DLIBMD_LIBRARY=
+	-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 "};
 : ${PKG_CMAKE_HOST_INSTALL_FILES_V2:="+../cmake-${PKG_CMAKE_HOST_VERSION}/Modules/Platform/BSDOS.cmake=share/cmake-${PKG_CMAKE_HOST_VERSION%.*}/Modules/Platform/Midipix.cmake"};
 
