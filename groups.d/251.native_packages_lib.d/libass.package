@@ -1,6 +1,6 @@
 : ${PKG_LIBASS_DEPENDS:="freetype fontconfig harfbuzz fribidi libiconv"};
-: ${PKG_LIBASS_SHA256SUM:=f0da0bbfba476c16ae3e1cfd862256d30915911f7abaa1b16ce62ee653192784};
-: ${PKG_LIBASS_VERSION:=0.17.1};
+: ${PKG_LIBASS_SHA256SUM:=eae425da50f0015c21f7b3a9c7262a910f0218af469e22e2931462fed3c50959};
+: ${PKG_LIBASS_VERSION:=0.17.3};
 : ${PKG_LIBASS_URL:=https://github.com/libass/libass/releases/download/${PKG_LIBASS_VERSION}/libass-${PKG_LIBASS_VERSION}.tar.xz};
 : ${PKG_LIBASS_CONFIGURE_ARGS_EXTRA:="--disable-asm"};
 
