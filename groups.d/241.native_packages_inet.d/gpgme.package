@@ -1,6 +1,6 @@
 : ${PKG_GPGME_DEPENDS:="libassuan libgpg_error"};
-: ${PKG_GPGME_SHA256SUM:=361d4eae47ce925dba0ea569af40e7b52c645c4ae2e65e5621bf1b6cdd8b0e9e};
-: ${PKG_GPGME_VERSION:=1.18.0};
+: ${PKG_GPGME_SHA256SUM:=e11b1a0e361777e9e55f48a03d89096e2abf08c63d84b7017cfe1dce06639581};
+: ${PKG_GPGME_VERSION:=1.24.2};
 : ${PKG_GPGME_URL:=https://www.gnupg.org/ftp/gcrypt/gpgme/gpgme-${PKG_GPGME_VERSION}.tar.bz2};
 : ${PKG_GPGME_CONFIGURE_ARGS_EXTRA:="--disable-g13-test --disable-gpgconf-test --disable-gpgsm-test --disable-gpg-test --with-libgpg-error-prefix=${PREFIX_NATIVE} --with-libassuan-prefix=${PREFIX_NATIVE} --enable-languages=cl"};
 : ${PKG_GPGME_CFLAGS_CONFIGURE_EXTRA:=-std=gnu99};
