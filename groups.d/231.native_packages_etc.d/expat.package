@@ -2,6 +2,7 @@
 : ${PKG_EXPAT_VERSION:=2.7.1};
 : ${PKG_EXPAT_URL:=http://download.openpkg.org/components/cache/expat/expat-${PKG_EXPAT_VERSION}.tar.xz};
 : ${PKG_EXPAT_CONFIGURE_ARGS_EXTRA:="--with-getrandom --with-sys-getrandom --without-docbook --without-tests"};
+: ${PKG_EXPAT_CFLAGS_CONFIGURE_EXTRA:="-DXML_ENABLE_VISIBILITY"};
 
 ex_pkg_register "expat" "${RTL_FILEOP_SOURCE_FNAME}" "native_packages";
 
