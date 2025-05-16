@@ -1,0 +1,19 @@
+diff -ru php-8.3.4.orig/Zend/zend_signal.h php-8.3.4/Zend/zend_signal.h
+--- php-8.3.4.orig/Zend/zend_signal.h	2024-03-13 00:42:26.000000000 +0100
++++ php-8.3.4/Zend/zend_signal.h	2025-05-17 01:23:53.828548526 +0200
+@@ -84,12 +84,12 @@
+ # endif /* not ZTS */
+ 
+ ZEND_API void zend_signal_handler_unblock(void);
+-void zend_signal_activate(void);
+-void zend_signal_deactivate(void);
++ZEND_API void zend_signal_activate(void);
++ZEND_API void zend_signal_deactivate(void);
+ BEGIN_EXTERN_C()
+ ZEND_API void zend_signal_startup(void);
+ END_EXTERN_C()
+-void zend_signal_init(void);
++ZEND_API void zend_signal_init(void);
+ 
+ ZEND_API void zend_signal(int signo, void (*handler)(int));
+ ZEND_API void zend_sigaction(int signo, const struct sigaction *act, struct sigaction *oldact);
