@@ -1,0 +1,23 @@
+diff -ru libcaca.orig/caca/caca_internals.h libcaca/caca/caca_internals.h
+--- libcaca.orig/caca/caca_internals.h	2025-05-17 18:51:29.520730829 +0200
++++ libcaca/caca/caca_internals.h	2025-05-17 19:12:43.545698624 +0200
+@@ -268,7 +268,7 @@
+ extern void _caca_set_term_title(char const *);
+ 
+ /* Internal memory function */
+-extern void *_caca_alloc2d(size_t width, size_t height, size_t elem_size);
++__extern void *_caca_alloc2d(size_t width, size_t height, size_t elem_size);
+ 
+ /* Profiling functions */
+ #if defined PROF
+diff -ru libcaca.orig/src/common-image.c libcaca/src/common-image.c
+--- libcaca.orig/src/common-image.c	2025-05-17 19:13:21.294381185 +0200
++++ libcaca/src/common-image.c	2025-05-17 19:07:40.885404413 +0200
+@@ -22,6 +22,7 @@
+ #endif
+ 
+ #include "caca.h"
++#include "caca_internals.h"
+ 
+ #include "common-image.h"
+ 
