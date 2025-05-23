@@ -6,7 +6,7 @@ diff -ru procps-ng-4.0.4.orig/library/devname.c procps-ng-4.0.4/library/devname.
    char path[32];
    ssize_t count;
 -  const int len = snprintf(path, sizeof path, "/proc/%d/%s", pid, name);  /* often permission denied */
-+  const int len = snprintf(path, sizeof path, "/proc/sysproc/%d/%s", pid, name);  /* often permission denied */
++  const int len = snprintf(path, sizeof path, "/proc/pidproc/%d/%s", pid, name);  /* often permission denied */
    if(len <= 0 || (size_t)len >= sizeof path) return 0;
    count = readlink(path,buf,TTY_NAME_SIZE-1);
    if(count <= 0 || count >= TTY_NAME_SIZE-1) return 0;
@@ -15,7 +15,7 @@ diff -ru procps-ng-4.0.4.orig/library/devname.c procps-ng-4.0.4/library/devname.
    FILE *fp;
    char *lf;
 -  sprintf (path, "/proc/%d/ctty", pid);  /* often permission denied */
-+  sprintf (path, "/proc/sysproc/%d/ctty", pid);  /* often permission denied */
++  sprintf (path, "/proc/pidproc/%d/ctty", pid);  /* often permission denied */
    fp = fopen (path, "r");
    if (!fp)
      return 0;
@@ -27,7 +27,7 @@ diff -ru procps-ng-4.0.4.orig/library/readproc.c procps-ng-4.0.4/library/readpro
              if (errno == 0) {
                  p->tid = p->tgid;
 -                snprintf(path, PROCPATHLEN, "/proc/%d", p->tgid);
-+                snprintf(path, PROCPATHLEN, "/proc/sysproc/%d", p->tgid);
++                snprintf(path, PROCPATHLEN, "/proc/pidproc/%d", p->tgid);
                  return 1;
              }
          }
@@ -36,7 +36,7 @@ diff -ru procps-ng-4.0.4.orig/library/readproc.c procps-ng-4.0.4/library/readpro
      }
      // use "path" as some tmp space
 -    snprintf(path, PROCPATHLEN, "/proc/%d/task", p->tgid);
-+    snprintf(path, PROCPATHLEN, "/proc/sysproc/%d/task", p->tgid);
++    snprintf(path, PROCPATHLEN, "/proc/pidproc/%d/task", p->tgid);
      PT->taskdir = opendir(path);
      if(!PT->taskdir) return 0;
      PT->taskdir_user = p->tgid;
@@ -45,7 +45,7 @@ diff -ru procps-ng-4.0.4.orig/library/readproc.c procps-ng-4.0.4/library/readpro
    t->tgid = p->tgid;
  //t->ppid = p->ppid;  // cover for kernel behavior? we want both actually...?
 -  snprintf(path, PROCPATHLEN, "/proc/%d/task/%.10s", p->tgid, ent->d_name);
-+  snprintf(path, PROCPATHLEN, "/proc/sysproc/%d/task/%.10s", p->tgid, ent->d_name);
++  snprintf(path, PROCPATHLEN, "/proc/pidproc/%d/task/%.10s", p->tgid, ent->d_name);
    return 1;
  }
  
@@ -54,7 +54,7 @@ diff -ru procps-ng-4.0.4.orig/library/readproc.c procps-ng-4.0.4/library/readpro
  
    if (pid) {
 -    snprintf(path, PROCPATHLEN, "/proc/%d", pid);
-+    snprintf(path, PROCPATHLEN, "/proc/sysproc/%d", pid);
++    snprintf(path, PROCPATHLEN, "/proc/pidproc/%d", pid);
      p->tid = p->tgid = pid;        // this tgid may be a huge fib |
  
      /* the 'status' directory is the only place where we find the |
@@ -66,7 +66,7 @@ diff -ru procps-ng-4.0.4.orig/src/pidof.c procps-ng-4.0.4/src/pidof.c
  	ssize_t len;
  
 -	snprintf(link, sizeof(link), "/proc/%d/%s", pid, base_name);
-+	snprintf(link, sizeof(link), "/proc/sysproc/%d/%s", pid, base_name);
++	snprintf(link, sizeof(link), "/proc/pidproc/%d/%s", pid, base_name);
  
  	len = path_alloc_size = 0;
  	result = NULL;
@@ -78,12 +78,12 @@ diff -ru procps-ng-4.0.4.orig/src/pmap.c procps-ng-4.0.4/src/pmap.c
  
  	if (x_option || X_option || c_option) {
 -		snprintf(buf, sizeof buf, "/proc/%u/smaps", PIDS_VAL(tgid, s_int, p, Pids_info));
-+		snprintf(buf, sizeof buf, "/proc/sysproc/%u/smaps", PIDS_VAL(tgid, s_int, p, Pids_info));
++		snprintf(buf, sizeof buf, "/proc/pidproc/%u/smaps", PIDS_VAL(tgid, s_int, p, Pids_info));
  		if ((fp = fopen(buf, "r")) == NULL)
  			return 1;
  	} else {
 -		snprintf(buf, sizeof buf, "/proc/%u/maps", PIDS_VAL(tgid, s_int, p, Pids_info));
-+		snprintf(buf, sizeof buf, "/proc/sysproc/%u/maps", PIDS_VAL(tgid, s_int, p, Pids_info));
++		snprintf(buf, sizeof buf, "/proc/pidproc/%u/maps", PIDS_VAL(tgid, s_int, p, Pids_info));
  		if ((fp = fopen(buf, "r")) == NULL)
  			return 1;
  	}
@@ -108,7 +108,7 @@ diff -ru procps-ng-4.0.4.orig/src/pwdx.c procps-ng-4.0.4/src/pwdx.c
  
 -	if (!strncmp("/proc/", input, 6))
 -		skip = 6;
-+	if (!strncmp("/proc/sysproc/", input, 14))
++	if (!strncmp("/proc/pidproc/", input, 14))
 +		skip = 14;
  	errno = 0;
  	pid = strtol(input + skip, &end, 10);
@@ -118,7 +118,7 @@ diff -ru procps-ng-4.0.4.orig/src/pwdx.c procps-ng-4.0.4/src/pwdx.c
  		 */
  		if (argv[i][0] != '/')
 -			snprintf(buf, buflen, "/proc/%s/cwd", argv[i]);
-+			snprintf(buf, buflen, "/proc/sysproc/%s/cwd", argv[i]);
++			snprintf(buf, buflen, "/proc/pidproc/%s/cwd", argv[i]);
  		else
  			snprintf(buf, buflen, "%s/cwd", argv[i]);
  
