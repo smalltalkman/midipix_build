@@ -1,6 +1,6 @@
 : ${PKG_VORBIS_TOOLS_DEPENDS:="curl flac libogg libvorbis"};
-: ${PKG_VORBIS_TOOLS_SHA256SUM:=db7774ec2bf2c939b139452183669be84fda5774d6400fc57fde37f77624f0b0};
-: ${PKG_VORBIS_TOOLS_VERSION:=1.4.2};
+: ${PKG_VORBIS_TOOLS_SHA256SUM:=a1fe3ddc6777bdcebf6b797e7edfe0437954b24756ffcc8c6b816b63e0460dde};
+: ${PKG_VORBIS_TOOLS_VERSION:=1.4.3};
 : ${PKG_VORBIS_TOOLS_URL:=https://ftp.osuosl.org/pub/xiph/releases/vorbis/vorbis-tools-${PKG_VORBIS_TOOLS_VERSION}.tar.gz};
 : ${PKG_VORBIS_TOOLS_CONFIGURE_ARGS_EXTRA:="--disable-ogg123 --without-speex --without-kate"};
 
