@@ -1,5 +1,5 @@
 : ${PKG_CPARSER_DEPENDS:="libfirm"};
-: ${PKG_CPARSER_URLS_GIT:="cparser=http://github.com/lalbornoz/cparser.git@main bcparser=${DEFAULT_GITROOT}/compilers/bcparser@main"};
+: ${PKG_CPARSER_URLS_GIT:="cparser=https://github.com/libfirm/cparser@master bcparser=${DEFAULT_GITROOT}/compilers/bcparser@main"};
 : ${PKG_CPARSER_BUILD_DIR:=build/cparser};
 : ${PKG_CPARSER_CONFIGURE:=bcparser/configure};
 : ${PKG_CPARSER_CONFIGURE_ARGS:="--source-dir=../../cparser --prefix="};
