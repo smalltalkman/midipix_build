@@ -1,0 +1,162 @@
+diff -ru curl-8.13.0.orig/configure.ac curl-8.13.0/configure.ac
+--- curl-8.13.0.orig/configure.ac	2025-04-02 07:47:41.000000000 +0200
++++ curl-8.13.0/configure.ac	2025-05-25 11:53:42.607216472 +0200
+@@ -4078,7 +4078,6 @@
+ CURL_CHECK_FUNC_ALARM
+ CURL_CHECK_FUNC_BASENAME
+ CURL_CHECK_FUNC_CLOSESOCKET
+-CURL_CHECK_FUNC_CLOSESOCKET_CAMEL
+ CURL_CHECK_FUNC_FCNTL
+ CURL_CHECK_FUNC_FREEADDRINFO
+ CURL_CHECK_FUNC_FSETXATTR
+@@ -4092,7 +4091,6 @@
+ CURL_CHECK_FUNC_GMTIME_R
+ CURL_CHECK_FUNC_IOCTL
+ CURL_CHECK_FUNC_IOCTLSOCKET
+-CURL_CHECK_FUNC_IOCTLSOCKET_CAMEL
+ CURL_CHECK_FUNC_MEMRCHR
+ CURL_CHECK_FUNC_SIGACTION
+ CURL_CHECK_FUNC_SIGINTERRUPT
+diff -ru curl-8.13.0.orig/curl-config.in curl-8.13.0/curl-config.in
+--- curl-8.13.0.orig/curl-config.in	2025-04-02 07:47:41.000000000 +0200
++++ curl-8.13.0/curl-config.in	2025-05-25 11:40:06.110600368 +0200
+@@ -144,13 +144,13 @@
+     if test "X@includedir@" = 'X/usr/include'; then
+       echo '@LIBCURL_PC_CFLAGS@'
+     else
+-      echo "@LIBCURL_PC_CFLAGS@ -I@includedir@"
++      echo "@LIBCURL_PC_CFLAGS@"
+     fi
+     ;;
+ 
+   --libs)
+     if test "X@libdir@" != 'X/usr/lib' -a "X@libdir@" != 'X/usr/lib64'; then
+-      curllibdir="-L@libdir@ "
++      curllibdir=""
+     else
+       curllibdir=''
+     fi
+diff -ru curl-8.13.0.orig/m4/curl-compilers.m4 curl-8.13.0/m4/curl-compilers.m4
+--- curl-8.13.0.orig/m4/curl-compilers.m4	2025-04-02 07:47:41.000000000 +0200
++++ curl-8.13.0/m4/curl-compilers.m4	2025-05-25 12:02:19.604559677 +0200
+@@ -42,37 +42,6 @@
+   flags_opt_off="unknown"
+   #
+   flags_prefer_cppflags="no"
+-  #
+-  CURL_CHECK_COMPILER_DEC_C
+-  CURL_CHECK_COMPILER_HPUX_C
+-  CURL_CHECK_COMPILER_IBM_C
+-  CURL_CHECK_COMPILER_INTEL_C
+-  CURL_CHECK_COMPILER_CLANG
+-  CURL_CHECK_COMPILER_GNU_C
+-  case $host in
+-    mips-sgi-irix*)
+-      CURL_CHECK_COMPILER_SGI_MIPSPRO_C
+-      CURL_CHECK_COMPILER_SGI_MIPS_C
+-    ;;
+-  esac
+-  CURL_CHECK_COMPILER_SUNPRO_C
+-  CURL_CHECK_COMPILER_TINY_C
+-  #
+-  if test "$compiler_id" = "unknown"; then
+-  cat <<_EOF 1>&2
+-***
+-*** Warning: This configure script does not have information about the
+-*** compiler you are using, relative to the flags required to enable or
+-*** disable generation of debug info, optimization options or warnings.
+-***
+-*** Whatever settings are present in CFLAGS will be used for this run.
+-***
+-*** If you wish to help the curl project to better support your compiler
+-*** you can report this and the required info on the libcurl development
+-*** mailing list: https://lists.haxx.selistinfo/curl-library/
+-***
+-_EOF
+-  fi
+ ])
+ 
+ 
+@@ -1419,15 +1388,13 @@
+       tmp_CFLAGS="-fvisibility=hidden"
+       supports_symbol_hiding="yes"
+       ;;
+-    GNU_C)
++    *)
+       dnl Only gcc 3.4 or later
+-      if test "$compiler_num" -ge "304"; then
+         if $CC --help --verbose 2>/dev/null | grep fvisibility= >/dev/null ; then
+           tmp_EXTERN="__attribute__((__visibility__(\"default\")))"
+           tmp_CFLAGS="-fvisibility=hidden"
+           supports_symbol_hiding="yes"
+         fi
+-      fi
+       ;;
+     INTEL_UNIX_C)
+       dnl Only icc 9.0 or later
+diff -ru curl-8.13.0.orig/m4/curl-functions.m4 curl-8.13.0/m4/curl-functions.m4
+--- curl-8.13.0.orig/m4/curl-functions.m4	2025-04-02 07:47:41.000000000 +0200
++++ curl-8.13.0/m4/curl-functions.m4	2025-05-25 11:40:06.111107814 +0200
+@@ -709,62 +709,6 @@
+ ])
+ 
+ 
+-dnl CURL_CHECK_FUNC_CLOSESOCKET_CAMEL
+-dnl -------------------------------------------------
+-dnl Verify if CloseSocket is available, prototyped, and
+-dnl can be compiled. If all of these are true, and
+-dnl usage has not been previously disallowed with
+-dnl shell variable curl_disallow_closesocket_camel,
+-dnl then HAVE_CLOSESOCKET_CAMEL will be defined.
+-
+-AC_DEFUN([CURL_CHECK_FUNC_CLOSESOCKET_CAMEL], [
+-  AC_REQUIRE([CURL_INCLUDES_SYS_SOCKET])dnl
+-  AC_REQUIRE([CURL_INCLUDES_BSDSOCKET])dnl
+-  #
+-  tst_compi_closesocket_camel="unknown"
+-  tst_allow_closesocket_camel="unknown"
+-  #
+-  AC_MSG_CHECKING([if CloseSocket is compilable])
+-  AC_COMPILE_IFELSE([
+-    AC_LANG_PROGRAM([[
+-      $curl_includes_bsdsocket
+-      $curl_includes_sys_socket
+-    ]],[[
+-      if(0 != CloseSocket(0))
+-        return 1;
+-    ]])
+-  ],[
+-    AC_MSG_RESULT([yes])
+-    tst_compi_closesocket_camel="yes"
+-  ],[
+-    AC_MSG_RESULT([no])
+-    tst_compi_closesocket_camel="no"
+-  ])
+-  #
+-  if test "$tst_compi_closesocket_camel" = "yes"; then
+-    AC_MSG_CHECKING([if CloseSocket usage allowed])
+-    if test "x$curl_disallow_closesocket_camel" != "xyes"; then
+-      AC_MSG_RESULT([yes])
+-      tst_allow_closesocket_camel="yes"
+-    else
+-      AC_MSG_RESULT([no])
+-      tst_allow_closesocket_camel="no"
+-    fi
+-  fi
+-  #
+-  AC_MSG_CHECKING([if CloseSocket might be used])
+-  if test "$tst_compi_closesocket_camel" = "yes" &&
+-     test "$tst_allow_closesocket_camel" = "yes"; then
+-    AC_MSG_RESULT([yes])
+-    AC_DEFINE_UNQUOTED(HAVE_CLOSESOCKET_CAMEL, 1,
+-      [Define to 1 if you have the CloseSocket camel case function.])
+-    curl_cv_func_closesocket_camel="yes"
+-  else
+-    AC_MSG_RESULT([no])
+-    curl_cv_func_closesocket_camel="no"
+-  fi
+-])
+-
+ dnl CURL_CHECK_FUNC_FCNTL
+ dnl -------------------------------------------------
+ dnl Verify if fcntl is available, prototyped, and
