@@ -1,7 +1,7 @@
-diff -Nru chicken-5.2.0.orig/Makefile.midipix chicken-5.2.0/Makefile.midipix
---- chicken-5.2.0.orig/Makefile.midipix	1970-01-01 01:00:00.000000000 +0100
-+++ chicken-5.2.0/Makefile.midipix	2021-04-04 16:59:37.500039554 +0200
-@@ -0,0 +1,103 @@
+diff -Nru chicken-5.3.0.orig/Makefile.midipix chicken-5.3.0/Makefile.midipix
+--- chicken-5.3.0.orig/Makefile.midipix	1970-01-01 01:00:00.000000000 +0100
++++ chicken-5.3.0/Makefile.midipix	2025-06-07 13:54:06.107385881 +0200
+@@ -0,0 +1,101 @@
 +# Makefile.midipix - configuration for Midipix -*- Makefile -*-
 +#
 +# Copyright (c) 2008-2016, The CHICKEN Team
@@ -94,8 +94,6 @@ diff -Nru chicken-5.2.0.orig/Makefile.midipix chicken-5.2.0/Makefile.midipix
 +	echo "#define HAVE_SYSEXITS_H 1" >>$@
 +	echo "#define HAVE_MEMMOVE 1" >>$@
 +	echo "#define C_STACK_GROWS_DOWNWARD 1" >>$@
-+#midipix: missing /proc/<pid>/exe see runtime.c
-+	echo "#define SEARCH_EXE_PATH 1" >>$@
 +ifdef GCHOOKS
 +	echo "#define C_GC_HOOKS" >>$@
 +endif
@@ -105,3 +103,22 @@ diff -Nru chicken-5.2.0.orig/Makefile.midipix chicken-5.2.0/Makefile.midipix
 +	cat chicken-defaults.h >>$@
 +
 +include $(SRCDIR)/rules.make
+diff -Nru chicken-5.3.0.orig/runtime.c chicken-5.3.0/runtime.c
+--- chicken-5.3.0.orig/runtime.c	2021-11-18 07:32:06.000000000 +0100
++++ chicken-5.3.0/runtime.c	2025-06-07 13:53:01.739677079 +0200
+@@ -12638,12 +12638,14 @@
+ 
+   if(buffer == NULL) return NULL;
+ 
+-#if defined(__linux__) || defined(__sun)
++#if defined(__linux__) || defined(__midipix__) || defined(__sun)
+   C_char linkname[64]; /* /proc/<pid>/exe */
+   pid_t pid = C_getpid();
+ 
+ # ifdef __linux__
+   C_snprintf(linkname, sizeof(linkname), "/proc/%i/exe", pid);
++# elif defined(__midipix__)
++  C_snprintf(linkname, sizeof(linkname), "/proc/pidproc/%i/exe", pid);
+ # else
+   C_snprintf(linkname, sizeof(linkname), "/proc/%i/path/a.out", pid); /* SunOS / Solaris */
+ # endif
