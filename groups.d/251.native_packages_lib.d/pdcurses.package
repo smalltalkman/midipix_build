@@ -1,0 +1,12 @@
+: ${PKG_PDCURSES_DEPENDS:="sdl2"};
+: ${PKG_PDCURSES_SHA256SUM:=590dbe0f5835f66992df096d3602d0271103f90cf8557a5d124f693c2b40d7ec};
+: ${PKG_PDCURSES_VERSION:=3.9};
+: ${PKG_PDCURSES_URL:=https://github.com/wmcbrine/PDCurses/archive/refs/tags/${PKG_PDCURSES_VERSION}.tar.gz};
+: ${PKG_PDCURSES_CONFIGURE_ARGS_EXTRA:="--without-x --with-backend=sdl2"};
+: ${PKG_PDCURSES_SUBDIR:=PDCurses-${PKG_PDCURSES_VERSION}};
+: ${PKG_PDCURSES_BUILD_DIR:=PDCurses-${PKG_PDCURSES_VERSION}};
+: ${PKG_PDCURSES_FORCE_AUTORECONF:=1};
+
+ex_pkg_register "pdcurses" "${RTL_FILEOP_SOURCE_FNAME}" "native_packages";
+
+# vim:filetype=sh textwidth=0

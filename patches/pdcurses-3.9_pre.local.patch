@@ -1,0 +1,408 @@
+diff -Nru PDCurses-3.9.orig/configure.ac PDCurses-3.9/configure.ac
+--- PDCurses-3.9.orig/configure.ac	1970-01-01 01:00:00.000000000 +0100
++++ PDCurses-3.9/configure.ac	2025-06-10 22:23:49.585676788 +0200
+@@ -0,0 +1,194 @@
++AC_INIT(PDCurses, 3.9, wmcbrine@gmail.com, PDCurses)
++AC_CONFIG_SRCDIR(curses.h)
++AC_CONFIG_MACRO_DIRS([m4])
++AM_INIT_AUTOMAKE([-Wall -Werror foreign subdir-objects])
++
++AC_SUBST(prefix)
++
++AC_PROG_CC
++AM_PROG_AR
++
++PKG_PROG_PKG_CONFIG
++
++LT_INIT([win32-dll])
++
++AC_CONFIG_HEADERS([config.h])
++
++AC_SUBST(SYS_DEFS)
++
++AC_PROG_INSTALL
++AC_PROG_MAKE_SET
++
++AC_CHECK_FUNCS(vsscanf usleep poll vsnprintf)
++
++dnl ==================== Backend Selection ====================
++
++dnl Default backend selection
++DEFAULT_BACKEND=""
++AVAILABLE_BACKENDS=""
++ALL_BACKENDS="x11 sdl1 sdl2 wincon dos os2"
++
++dnl Check for X11
++AC_PATH_X
++if test "$have_x" != "no" ; then
++	AVAILABLE_BACKENDS="$AVAILABLE_BACKENDS x11"
++	if test "$DEFAULT_BACKEND" = "" ; then
++		DEFAULT_BACKEND="x11"
++	fi
++fi
++
++AVAILABLE_BACKENDS="$AVAILABLE_BACKENDS sdl1 sdl2 wincon dos os2"
++
++AC_ARG_WITH(backend,
++	[  --with-backend=BACKEND  select backend (available: x11 sdl1 sdl2 wincon dos os2)],
++	[BACKEND="$withval"],
++	[BACKEND="$DEFAULT_BACKEND"]
++)
++
++if test "$BACKEND" = "" ; then
++	AC_MSG_ERROR([No suitable backend found. Available backends: $AVAILABLE_BACKENDS])
++fi
++
++dnl Validate selected backend
++case "$BACKEND" in
++	x11)
++		if test "$have_x" = "no" ; then
++			AC_MSG_ERROR([X11 backend selected but X11 development libraries not found])
++		fi
++		BACKEND_CFLAGS="$X_CFLAGS"
++		BACKEND_LIBS="$X_LIBS -lX11"
++		BACKEND_DEFS=""
++		LIBNAME="XCurses"
++		;;
++	sdl1)
++		PKG_CHECK_MODULES([SDL], [sdl], [
++			BACKEND_CFLAGS="$SDL_CFLAGS"
++			BACKEND_LIBS="$SDL_LIBS"
++		], [
++			BACKEND_CFLAGS=""
++			BACKEND_LIBS="-lSDL"
++		])
++		BACKEND_DEFS=""
++		LIBNAME="SDLCurses"
++		;;
++	sdl2)
++		PKG_CHECK_MODULES([SDL2], [sdl2], [
++			BACKEND_CFLAGS="$SDL2_CFLAGS"
++			BACKEND_LIBS="$SDL2_LIBS"
++		], [
++			BACKEND_CFLAGS=""
++			BACKEND_LIBS="-lSDL2"
++		])
++		BACKEND_DEFS=""
++		LIBNAME="SDL2Curses"
++		;;
++	wincon)
++		BACKEND_CFLAGS=""
++		BACKEND_LIBS=""
++		BACKEND_DEFS=""
++		LIBNAME="pdcurses"
++		;;
++	dos)
++		BACKEND_CFLAGS=""
++		BACKEND_LIBS=""
++		BACKEND_DEFS=""
++		LIBNAME="pdcurses"
++		;;
++	os2)
++		BACKEND_CFLAGS=""
++		BACKEND_LIBS=""
++		BACKEND_DEFS=""
++		LIBNAME="pdcurses"
++		;;
++	*)
++		AC_MSG_ERROR([Unknown backend: $BACKEND. Available: $AVAILABLE_BACKENDS])
++		;;
++esac
++
++AC_SUBST(BACKEND)
++AC_SUBST(BACKEND_CFLAGS)
++AC_SUBST(BACKEND_LIBS)
++AC_SUBST(BACKEND_DEFS)
++AC_SUBST(LIBNAME)
++AC_SUBST(CONFIG_SCRIPT)
++
++echo "Selected backend: $BACKEND"
++echo "Available backends: $AVAILABLE_BACKENDS"
++
++dnl Set up conditionals for automake
++AM_CONDITIONAL([BACKEND_X11], [test "$BACKEND" = "x11"])
++AM_CONDITIONAL([BACKEND_SDL1], [test "$BACKEND" = "sdl1"])
++AM_CONDITIONAL([BACKEND_SDL2], [test "$BACKEND" = "sdl2"])
++AM_CONDITIONAL([BACKEND_WINCON], [test "$BACKEND" = "wincon"])
++AM_CONDITIONAL([BACKEND_DOS], [test "$BACKEND" = "dos"])
++AM_CONDITIONAL([BACKEND_OS2], [test "$BACKEND" = "os2"])
++
++dnl --------------- check for wide character support -----------------
++dnl allow --enable-widec to include wide character support
++AC_ARG_ENABLE(widec,
++	[  --enable-widec          include support for wide characters],
++)
++PDC_WIDE=""
++if test "$enable_widec" = "yes"; then
++	case "$BACKEND" in
++		sdl1)
++			PDC_WIDE="-DPDC_WIDE"
++			BACKEND_LIBS="$BACKEND_LIBS -lSDL_ttf"
++			;;
++		sdl2)
++			PDC_WIDE="-DPDC_WIDE"
++			BACKEND_LIBS="$BACKEND_LIBS -lSDL2_ttf"
++			;;
++		x11|wincon|dos|os2)
++			PDC_WIDE="-DPDC_WIDE"
++			;;
++	esac
++fi
++AC_SUBST(PDC_WIDE)
++
++dnl ------------------------ force UTF-8? ----------------------------
++dnl allow --enable-force-utf8 to override locale settings
++AC_ARG_ENABLE(force-utf8,
++	[  --enable-force-utf8     override locale settings; use UTF-8],
++)
++if test "$enable_force_utf8" = "yes"; then
++	SYS_DEFS="$SYS_DEFS -DPDC_FORCE_UTF8"
++fi
++
++dnl --------------------- check for Xaw3d library --------------------
++dnl allow --with-xaw3d to link with PDCurses (X11 only)
++if test "$BACKEND" = "x11" ; then
++	AC_ARG_WITH(xaw3d,
++		[  --with-xaw3d            link with Xaw3d (X11 only)],
++	)
++	if test "$with_xaw3d" = "yes"; then
++		AC_DEFINE([USE_XAW3D], [1],
++			[Define if you want to use Xaw3d library]
++		)
++	fi
++
++	dnl --------------------- check for neXtaw library -------------------
++	dnl allow --with-nextaw to link with PDCurses (X11 only)
++	AC_ARG_WITH(nextaw,
++		[  --with-nextaw           link with neXtaw (X11 only)],
++	)
++	if test "$with_nextaw" = "yes"; then
++		AC_DEFINE([USE_NEXTAW], [1],
++			[Define if you want to use neXtaw library]
++		)
++	fi
++fi
++
++AC_CONFIG_FILES([Makefile])
++AC_OUTPUT
++
++dnl Define config.h values based on backend
++case "$BACKEND" in
++	x11)
++		AC_DEFINE([XCURSES], [1], [Define if building X11 backend])
++		AC_DEFINE([HAVE_DECKEYSYM_H], [], [Define if you have the <DECkeySym.h> header file])
++		AC_DEFINE([HAVE_SUNKEYSYM_H], [], [Define if you have the <Sunkeysym.h> header file])
++		AC_DEFINE([HAVE_XPM_H], [], [Define if you have the <xpm.h> header file])
++		AC_DEFINE([XPOINTER_TYPEDEFED], [], [Define XPointer is typedefed in X11/Xlib.h])
++        ;;
++esac 
+diff -Nru PDCurses-3.9.orig/m4/.dummy PDCurses-3.9/m4/.dummy
+--- PDCurses-3.9.orig/m4/.dummy	1970-01-01 01:00:00.000000000 +0100
++++ PDCurses-3.9/m4/.dummy	2025-06-10 22:30:57.006533239 +0200
+@@ -0,0 +1 @@
++ 
+diff -Nru PDCurses-3.9.orig/Makefile.am PDCurses-3.9/Makefile.am
+--- PDCurses-3.9.orig/Makefile.am	1970-01-01 01:00:00.000000000 +0100
++++ PDCurses-3.9/Makefile.am	2025-06-10 22:27:56.504501215 +0200
+@@ -0,0 +1,201 @@
++ACLOCAL_AMFLAGS = -I m4
++
++if BACKEND_X11
++lib_LTLIBRARIES = libXCurses.la
++endif
++
++if BACKEND_SDL1
++lib_LTLIBRARIES = libSDLCurses.la
++endif
++
++if BACKEND_SDL2
++lib_LTLIBRARIES = libSDL2Curses.la  
++endif
++
++if BACKEND_WINCON
++lib_LTLIBRARIES = libpdcurses.la
++endif
++
++if BACKEND_DOS
++lib_LTLIBRARIES = libpdcurses.la
++endif
++
++if BACKEND_OS2
++lib_LTLIBRARIES = libpdcurses.la
++endif
++
++
++pdcurses_sources = \
++	pdcurses/addch.c \
++	pdcurses/addchstr.c \
++	pdcurses/addstr.c \
++	pdcurses/attr.c \
++	pdcurses/beep.c \
++	pdcurses/bkgd.c \
++	pdcurses/border.c \
++	pdcurses/clear.c \
++	pdcurses/color.c \
++	pdcurses/delch.c \
++	pdcurses/deleteln.c \
++	pdcurses/getch.c \
++	pdcurses/getstr.c \
++	pdcurses/getyx.c \
++	pdcurses/inch.c \
++	pdcurses/inchstr.c \
++	pdcurses/initscr.c \
++	pdcurses/inopts.c \
++	pdcurses/insch.c \
++	pdcurses/insstr.c \
++	pdcurses/instr.c \
++	pdcurses/kernel.c \
++	pdcurses/keyname.c \
++	pdcurses/mouse.c \
++	pdcurses/move.c \
++	pdcurses/outopts.c \
++	pdcurses/overlay.c \
++	pdcurses/pad.c \
++	pdcurses/panel.c \
++	pdcurses/printw.c \
++	pdcurses/refresh.c \
++	pdcurses/scanw.c \
++	pdcurses/scr_dump.c \
++	pdcurses/scroll.c \
++	pdcurses/slk.c \
++	pdcurses/termattr.c \
++	pdcurses/touch.c \
++	pdcurses/util.c \
++	pdcurses/window.c \
++	pdcurses/debug.c
++
++# Backend-specific source files
++x11_backend_sources = \
++	x11/pdcclip.c \
++	x11/pdcdisp.c \
++	x11/pdcgetsc.c \
++	x11/pdckbd.c \
++	x11/pdcscrn.c \
++	x11/pdcsetsc.c \
++	x11/pdcutil.c \
++	x11/ScrollBox.c \
++	x11/sb.c
++
++sdl1_backend_sources = \
++	sdl1/pdcclip.c \
++	sdl1/pdcdisp.c \
++	sdl1/pdcgetsc.c \
++	sdl1/pdckbd.c \
++	sdl1/pdcscrn.c \
++	sdl1/pdcsetsc.c \
++	sdl1/pdcutil.c
++
++sdl2_backend_sources = \
++	sdl2/pdcclip.c \
++	sdl2/pdcdisp.c \
++	sdl2/pdcgetsc.c \
++	sdl2/pdckbd.c \
++	sdl2/pdcscrn.c \
++	sdl2/pdcsetsc.c \
++	sdl2/pdcutil.c
++
++wincon_backend_sources = \
++	wincon/pdcclip.c \
++	wincon/pdcdisp.c \
++	wincon/pdcgetsc.c \
++	wincon/pdckbd.c \
++	wincon/pdcscrn.c \
++	wincon/pdcsetsc.c \
++	wincon/pdcutil.c
++
++dos_backend_sources = \
++	dos/pdcclip.c \
++	dos/pdcdisp.c \
++	dos/pdcgetsc.c \
++	dos/pdckbd.c \
++	dos/pdcscrn.c \
++	dos/pdcsetsc.c \
++	dos/pdcutil.c
++
++os2_backend_sources = \
++	os2/pdcclip.c \
++	os2/pdcdisp.c \
++	os2/pdcgetsc.c \
++	os2/pdckbd.c \
++	os2/pdcscrn.c \
++	os2/pdcsetsc.c \
++	os2/pdcutil.c
++
++# Library targets
++if BACKEND_X11
++libXCurses_la_SOURCES = $(pdcurses_sources) $(x11_backend_sources)
++libXCurses_la_CPPFLAGS = @BACKEND_DEFS@ @SYS_DEFS@ @BACKEND_CFLAGS@ @PDC_WIDE@ -I.
++libXCurses_la_LIBADD = @BACKEND_LIBS@
++libXCurses_la_LDFLAGS = -version-info 3:9:0 -no-undefined
++endif
++
++if BACKEND_SDL1
++libSDLCurses_la_SOURCES = $(pdcurses_sources) $(sdl1_backend_sources)
++libSDLCurses_la_CPPFLAGS = @BACKEND_DEFS@ @SYS_DEFS@ @BACKEND_CFLAGS@ @PDC_WIDE@ -I.
++libSDLCurses_la_LIBADD = @BACKEND_LIBS@
++libSDLCurses_la_LDFLAGS = -version-info 3:9:0 -no-undefined
++endif
++
++if BACKEND_SDL2
++libSDL2Curses_la_SOURCES = $(pdcurses_sources) $(sdl2_backend_sources)
++libSDL2Curses_la_CPPFLAGS = @BACKEND_DEFS@ @SYS_DEFS@ @BACKEND_CFLAGS@ @PDC_WIDE@ -I.
++libSDL2Curses_la_LIBADD = @BACKEND_LIBS@
++libSDL2Curses_la_LDFLAGS = -version-info 3:9:0 -no-undefined
++endif
++
++if BACKEND_WINCON
++libpdcurses_la_SOURCES = $(pdcurses_sources) $(wincon_backend_sources)
++libpdcurses_la_CPPFLAGS = @BACKEND_DEFS@ @SYS_DEFS@ @BACKEND_CFLAGS@ @PDC_WIDE@ -I. -DPDC_DLL_BUILD
++libpdcurses_la_LIBADD = @BACKEND_LIBS@
++libpdcurses_la_LDFLAGS = -version-info 3:9:0 -no-undefined
++endif
++
++if BACKEND_DOS
++libpdcurses_la_SOURCES = $(pdcurses_sources) $(dos_backend_sources)
++libpdcurses_la_CPPFLAGS = @BACKEND_DEFS@ @SYS_DEFS@ @BACKEND_CFLAGS@ @PDC_WIDE@ -I.
++libpdcurses_la_LIBADD = @BACKEND_LIBS@
++libpdcurses_la_LDFLAGS = -version-info 3:9:0 -no-undefined
++endif
++
++if BACKEND_OS2
++libpdcurses_la_SOURCES = $(pdcurses_sources) $(os2_backend_sources)
++libpdcurses_la_CPPFLAGS = @BACKEND_DEFS@ @SYS_DEFS@ @BACKEND_CFLAGS@ @PDC_WIDE@ -I.
++libpdcurses_la_LIBADD = @BACKEND_LIBS@
++libpdcurses_la_LDFLAGS = -version-info 3:9:0 -no-undefined
++endif
++
++# Headers to install (in subdirectory to avoid ncurses conflicts)
++pdcursesincludedir = $(includedir)/pdcurses
++pdcursesinclude_HEADERS = curses.h panel.h
++
++# Demo programs
++noinst_PROGRAMS = firework ozdemo ptest rain testcurs tuidemo worm xmas
++
++firework_SOURCES = demos/firework.c
++firework_LDADD = $(lib_LTLIBRARIES)
++
++ozdemo_SOURCES = demos/ozdemo.c
++ozdemo_LDADD = $(lib_LTLIBRARIES)
++
++ptest_SOURCES = demos/ptest.c
++ptest_LDADD = $(lib_LTLIBRARIES)
++
++rain_SOURCES = demos/rain.c
++rain_LDADD = $(lib_LTLIBRARIES)
++
++testcurs_SOURCES = demos/testcurs.c
++testcurs_LDADD = $(lib_LTLIBRARIES)
++
++tuidemo_SOURCES = demos/tuidemo.c demos/tui.c
++tuidemo_CPPFLAGS = -Idemos
++tuidemo_LDADD = $(lib_LTLIBRARIES)
++
++worm_SOURCES = demos/worm.c
++worm_LDADD = $(lib_LTLIBRARIES)
++
++xmas_SOURCES = demos/xmas.c
++xmas_LDADD = $(lib_LTLIBRARIES)
++
