@@ -1,4 +1,3 @@
-: ${PKG_PERK_DEPENDS:="mdso"};
 : ${PKG_PERK_URLS_GIT:="perk=${DEFAULT_GITROOT}/perk"};
 : ${PKG_PERK_CFLAGS_CONFIGURE:="-I${PREFIX_NATIVE}/include"};
 : ${PKG_PERK_CONFIGURE_ARGS:="--prefix= --target=${DEFAULT_TARGET}"};
