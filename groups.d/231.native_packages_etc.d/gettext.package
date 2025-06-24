@@ -1,0 +1,9 @@
+: ${PKG_GETTEXT_SHA256SUM:=05240b29f5b0f422e5a4ef8e9b5f76d8fa059cc057693d2723cdb76f36a88ab0};
+: ${PKG_GETTEXT_VERSION:=0.25};
+: ${PKG_GETTEXT_URL:=https://ftp.gnu.org/gnu/gettext/gettext-${PKG_GETTEXT_VERSION}.tar.xz};
+: ${PKG_GETTEXT_CONFIGURE_ARGS_EXTRA:="--disable-java --disable-d --disable-csharp --disable-modula2 --disable-go --without-emacs"};
+: ${PKG_GETTEXT_DISABLED:=1};
+
+ex_pkg_register "gettext" "${RTL_FILEOP_SOURCE_FNAME}" "native_packages";
+
+# vim:filetype=sh textwidth=0
