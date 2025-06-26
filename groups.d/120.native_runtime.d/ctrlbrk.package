@@ -1,0 +1,7 @@
+: ${PKG_CTRLBRK_DEPENDS:=""};
+: ${PKG_CTRLBRK_URLS_GIT:=ctrlbrk=${DEFAULT_GITROOT}/ctrlbrk};
+: ${PKG_CTRLBRK_INSTALL_TARGET_EXTRA:=install-lib};
+
+ex_pkg_register "ctrlbrk" "${RTL_FILEOP_SOURCE_FNAME}" "native_runtime";
+
+# vim:filetype=sh textwidth=0
