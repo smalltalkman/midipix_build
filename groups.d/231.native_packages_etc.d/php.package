@@ -1,6 +1,6 @@
 : ${PKG_PHP_DEPENDS:="bzip2 curl libz libzip libxml2 libxslt sqlite3 pcre2 readline libressl onig libiconv"};
-: ${PKG_PHP_SHA256SUM:=39a337036a546e5c28aea76cf424ac172db5156bd8a8fd85252e389409a5ba63};
-: ${PKG_PHP_VERSION:=8.3.4};
+: ${PKG_PHP_SHA256SUM:=66c86889059bd27ccf460590ca48fcaf3261349cc9bdba2023ac6a265beabf36};
+: ${PKG_PHP_VERSION:=8.3.22};
 : ${PKG_PHP_URL:=https://www.php.net/distributions/php-${PKG_PHP_VERSION}.tar.xz};
 : ${PKG_PHP_CONFIG_CACHE_EXTRA:="
 ac_cv_c_bigendian_php=no
