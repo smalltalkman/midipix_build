@@ -1,0 +1,54 @@
+diff -ru gc-8.2.8.orig/include/private/gcconfig.h gc-8.2.8/include/private/gcconfig.h
+--- gc-8.2.8.orig/include/private/gcconfig.h	2024-09-08 22:49:54.000000000 +0200
++++ gc-8.2.8/include/private/gcconfig.h	2025-07-01 09:37:49.175210416 +0200
+@@ -117,6 +117,27 @@
+ #   define LINUX
+ # endif
+ 
++# if defined(__midipix__)
++#  define MIDIPIX
++#  include <fcntl.h>
++#  include <sys/select.h>
++
++#  include <psxtypes/psxtypes.h>
++#  include <pemagine/pemagine.h>
++#  include <ntapi/nt_thread.h>
++
++int __gc_data_start_mark__[1];
++int __gc_data_end_mark__[1];
++#endif
++
++#  ifdef MIDIPIX
++#    define OS_TYPE "MIDIPIX"
++#    define DATASTART   ((ptr_t)__gc_data_start_mark__)
++#    define DATAEND     ((ptr_t)__gc_data_end_mark__)
++#    define STACKBOTTOM (ptr_t)(((nt_tib *)pe_get_teb_address())->stack_base)
++#    define USE_MMAP_ANON
++#  endif
++
+ /* And one for NetBSD: */
+ # if defined(__NetBSD__)
+ #    define NETBSD
+@@ -358,11 +379,11 @@
+ #    define X86_64
+ #    define mach_type_known
+ # endif
+-# if defined(LINUX) && (defined(i386) || defined(__i386__))
++# if (defined(LINUX) || defined(MIDIPIX)) && (defined(i386) || defined(__i386__))
+ #    define I386
+ #    define mach_type_known
+ # endif
+-# if defined(LINUX) && defined(__x86_64__)
++# if (defined(LINUX) || defined(MIDIPIX)) && defined(__x86_64__)
+ #    define X86_64
+ #    define mach_type_known
+ # endif
+@@ -2757,7 +2778,7 @@
+ #if defined(SVR4) || defined(LINUX) || defined(IRIX5) || defined(HPUX) \
+     || defined(OPENBSD) || defined(NETBSD) || defined(FREEBSD) \
+     || defined(DGUX) || defined(BSD) || defined(HAIKU) || defined(HURD) \
+-    || defined(AIX) || defined(DARWIN) || defined(OSF1)
++    || defined(AIX) || defined(DARWIN) || defined(OSF1) || defined(MIDIPIX)
+ # define UNIX_LIKE      /* Basic Unix-like system calls work.   */
+ #endif
+ 
