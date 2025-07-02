@@ -1,0 +1,25 @@
+From 6f22b122a532f40434c90e1a3c7b7f4d92a4e0fb Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=C3=98rjan=20Malde?= <red@foxi.me>
+Date: Wed, 2 Jul 2025 20:48:58 +0200
+Subject: [PATCH] fork
+
+---
+ src/jobs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/jobs.c b/src/jobs.c
+index 51e6fa1..8e51b6f 100644
+--- a/src/jobs.c
++++ b/src/jobs.c
+@@ -994,7 +994,7 @@ struct job *vforkexec(union node *n, char **argv, const char *path, int idx)
+ 	sigblockall(NULL);
+ 	vforked++;
+ 
+-	pid = vfork();
++	pid = fork();
+ 
+ 	if (!pid) {
+ 		forkchild(jp, n, FORK_FG);
+-- 
+2.50.0
+
