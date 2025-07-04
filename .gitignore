@@ -1,5 +1,7 @@
 patches/psxscl.local.patch
 patches/ntctty.local.patch
+patches/ntctty/*
+patches/psxscl/*
 
 etc/*.theme.host.*
 etc/*.theme.local
