@@ -1,6 +1,6 @@
 : ${PKG_LESS_DEPENDS:="ncurses ncursesw"};
-: ${PKG_LESS_SHA256SUM:=4c085364f3028290d34647df27f56018c365dc4c0092ab7de74ed8fe89014fe7};
-: ${PKG_LESS_VERSION:=678};
+: ${PKG_LESS_SHA256SUM:=9b68820c34fa8a0af6b0e01b74f0298bcdd40a0489c61649b47058908a153d78};
+: ${PKG_LESS_VERSION:=679};
 : ${PKG_LESS_URL:=http://www.greenwoodsoftware.com/less/less-${PKG_LESS_VERSION}.tar.gz};
 
 ex_pkg_register "less" "${RTL_FILEOP_SOURCE_FNAME}" "native_packages";
