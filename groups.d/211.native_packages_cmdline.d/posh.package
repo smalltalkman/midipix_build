@@ -1,0 +1,7 @@
+: ${PKG_POSH_URLS_GIT:="posh-master=https://salsa.debian.org/clint/posh.git@master"};
+: ${PKG_POSH_SUBDIR:="posh-master"};
+: ${PKG_POSH_FORCE_AUTORECONF:=1};
+
+ex_pkg_register "posh" "${RTL_FILEOP_SOURCE_FNAME}" "native_packages";
+
+# vim:filetype=sh textwidth=0
