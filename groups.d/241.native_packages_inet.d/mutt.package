@@ -1,6 +1,6 @@
 : ${PKG_MUTT_DEPENDS:="gnutls libz ncursesw libiconv"};
-: ${PKG_MUTT_SHA256SUM:=eb23faddc1cc97d867693f3a4a9f30949ad93765ad5b6fdae2797a4001c58efb};
-: ${PKG_MUTT_VERSION:=2.2.13};
+: ${PKG_MUTT_SHA256SUM:=d162fb6d491e3af43d6f62f949b7e687bb0c7c2584da52c99a99354a25de14ef};
+: ${PKG_MUTT_VERSION:=2.2.14};
 : ${PKG_MUTT_URL:=http://ftp.mutt.org/pub/mutt/mutt-${PKG_MUTT_VERSION}.tar.gz};
 : ${PKG_MUTT_CONFIG_CACHE_EXTRA:="
 mutt_cv_c99_snprintf=yes
