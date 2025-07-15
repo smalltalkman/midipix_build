@@ -1,6 +1,6 @@
 : ${PKG_TCSH_DEPENDS:="ncurses libiconv"};
-: ${PKG_TCSH_SHA256SUM:=d4d0b2a4df320f57a518e44c359ef36bbcf85d64f5146d0cb8ff34984e0d23fd};
-: ${PKG_TCSH_VERSION:=6.24.15};
+: ${PKG_TCSH_SHA256SUM:=4208cf4630fb64d91d81987f854f9570a5a0e8a001a92827def37d0ed8f37364};
+: ${PKG_TCSH_VERSION:=6.24.16};
 : ${PKG_TCSH_URL:=https://ftp.osuosl.org/pub/blfs/conglomeration/tcsh/tcsh-${PKG_TCSH_VERSION}.tar.gz};
 
 ex_pkg_register "tcsh" "${RTL_FILEOP_SOURCE_FNAME}" "native_packages";
