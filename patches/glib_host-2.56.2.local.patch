@@ -1,0 +1,21 @@
+diff -ru glib-2.56.2.orig/glib/goption.c glib-2.56.2/glib/goption.c
+--- glib-2.56.2.orig/glib/goption.c	2018-08-17 02:03:20.000000000 +0200
++++ glib-2.56.2/glib/goption.c	2025-08-04 23:30:28.735247867 +0200
+@@ -209,7 +209,7 @@
+   gpointer arg_data;
+   union
+   {
+-    gboolean bool;
++    gboolean _bool;
+     gint integer;
+     gchar *str;
+     gchar **array;
+@@ -1739,7 +1739,7 @@
+           switch (change->arg_type)
+             {
+             case G_OPTION_ARG_NONE:
+-              *(gboolean *)change->arg_data = change->prev.bool;
++              *(gboolean *)change->arg_data = change->prev._bool;
+               break;
+             case G_OPTION_ARG_INT:
+               *(gint *)change->arg_data = change->prev.integer;
