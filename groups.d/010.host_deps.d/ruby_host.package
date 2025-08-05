@@ -6,6 +6,7 @@
 : ${PKG_RUBY_HOST_CONFIGURE_ARGS_EXTRA:="--disable-install-rdoc --with-out-ext=fiddle,openssl"};
 : ${PKG_RUBY_HOST_MAKEFLAGS_VERBOSITY:="none"};
 : ${PKG_RUBY_HOST_VARS_FILE:="vars/ruby.vars"}
+: ${PKG_RUBY_HOST_DISABLED:=1};
 
 ex_pkg_register "ruby_host" "${RTL_FILEOP_SOURCE_FNAME}" "host_deps";
 
