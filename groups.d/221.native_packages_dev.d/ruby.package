@@ -4,6 +4,7 @@
 : ${PKG_RUBY_CONFIGURE_ARGS_EXTRA:="--disable-install-rdoc --with-baseruby=${PREFIX}/bin/ruby --with-out-ext=fiddle,openssl"};
 : ${PKG_RUBY_MAKEFLAGS_PARALLELISE:="-j1"};
 : ${PKG_RUBY_MAKEFLAGS_VERBOSITY:="V=1"};
+: ${PKG_RUBY_DISABLED:=1};
 
 ex_pkg_register "ruby" "${RTL_FILEOP_SOURCE_FNAME}" "native_packages";
 
