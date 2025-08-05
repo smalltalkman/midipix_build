@@ -2,6 +2,7 @@
 : ${PKG_GMP_CROSS_VERSION:=6.1.2};
 : ${PKG_GMP_CROSS_URL:=https://gmplib.org/download/gmp/gmp-${PKG_GMP_CROSS_VERSION}.tar.bz2};
 : ${PKG_GMP_CROSS_CONFIGURE_ARGS:="--disable-assembly --disable-nls --prefix="};
+: ${PKG_GMP_CROSS_CFLAGS_CONFIGURE_EXTRA:="-std=gnu99"};
 : ${PKG_GMP_CROSS_PATCHES_EXTRA:="${BUILD_WORKDIR}/chainport/patches/gmp/gmp-${PKG_GMP_CROSS_VERSION}.midipix.patch"};
 : ${PKG_GMP_CROSS_PREFIX:=${PREFIX_LOCAL}};
 
