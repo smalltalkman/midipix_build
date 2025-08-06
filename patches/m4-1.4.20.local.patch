@@ -1,0 +1,21 @@
+diff -ru m4-1.4.20.orig/lib/getlocalename_l-unsafe.c m4-1.4.20/lib/getlocalename_l-unsafe.c
+--- m4-1.4.20.orig/lib/getlocalename_l-unsafe.c	2025-05-10 14:41:50.000000000 +0200
++++ m4-1.4.20/lib/getlocalename_l-unsafe.c	2025-08-06 20:24:56.982885910 +0200
+@@ -34,7 +34,7 @@
+ #endif
+ #include "setlocale_null.h"
+ 
+-#if (__GLIBC__ >= 2 && !defined __UCLIBC__) || (defined __linux__ && HAVE_LANGINFO_H) || defined __CYGWIN__
++#if (__GLIBC__ >= 2 && !defined __UCLIBC__) || (defined __linux__ && HAVE_LANGINFO_H) || defined __CYGWIN__ || defined __midipix__
+ # include <langinfo.h>
+ #endif
+ #if defined __sun
+@@ -484,7 +484,7 @@
+            nl_langinfo_l (_NL_LOCALE_NAME (category), locale).  */
+         name = locale->__names[category];
+       return (struct string_with_storage) { name, STORAGE_OBJECT };
+-#elif defined __linux__ && HAVE_LANGINFO_H && defined NL_LOCALE_NAME
++#elif defined __linux__ && HAVE_LANGINFO_H && defined NL_LOCALE_NAME || defined __midipix__
+       /* musl libc */
+       const char *name = nl_langinfo_l (NL_LOCALE_NAME (category), locale);
+       return (struct string_with_storage) { name, STORAGE_OBJECT };
