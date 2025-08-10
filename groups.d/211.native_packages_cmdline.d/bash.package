@@ -1,5 +1,5 @@
 : ${PKG_BASH_DEPENDS:="ncurses libiconv"};
-: ${PKG_BASH_SHA256SUM:=62dd49c44c399ed1b3f7f731e87a782334d834f08e098a35f2c87547d5dbb269};
+: ${PKG_BASH_SHA256SUM:=0d5cd86965f869a26cf64f4b71be7b96f90a3ba8b3d74e27e8e9d9d5550f31ba};
 : ${PKG_BASH_VERSION:=5.3};
 : ${PKG_BASH_URL:=https://ftp.gnu.org/gnu/bash/bash-${PKG_BASH_VERSION}.tar.gz};
 : ${PKG_BASH_CONFIGURE_ARGS_EXTRA:="--without-bash-malloc --with-curses"};
