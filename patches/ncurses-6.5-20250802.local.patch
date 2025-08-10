@@ -1,0 +1,71 @@
+diff -ru ncurses-6.5-20250802.orig/configure ncurses-6.5-20250802/configure
+--- ncurses-6.5-20250802.orig/configure	2025-07-26 20:13:33.000000000 +0200
++++ ncurses-6.5-20250802/configure	2025-08-10 19:06:30.938626772 +0200
+@@ -6751,7 +6751,7 @@
+ 			LD_RPATH_OPT="-rpath "
+ 		fi
+ 		;;
+-	(linux*|gnu*|k*bsd*-gnu|freebsd*)
++	(linux*|gnu*|k*bsd*-gnu|freebsd*|midipix*)
+ 		LD_RPATH_OPT="-Wl,-rpath,"
+ 		;;
+ 	(openbsd[2-9].*|mirbsd*)
+@@ -7110,7 +7110,7 @@
+ 		fi
+ 		cf_cv_rm_so_locs=yes
+ 		;;
+-	(linux*|gnu*|k*bsd*-gnu)
++	(linux*|gnu*|k*bsd*-gnu|midipix*)
+ 		if test "$DFT_LWR_MODEL" = "shared" && test -n "$LD_RPATH_OPT" ; then
+ 			LOCAL_LDFLAGS="${LD_RPATH_OPT}\$(LOCAL_LIBDIR)"
+ 			LOCAL_LDFLAGS2="$LOCAL_LDFLAGS"
+diff -ru ncurses-6.5-20250802.orig/misc/gen-pkgconfig.in ncurses-6.5-20250802/misc/gen-pkgconfig.in
+--- ncurses-6.5-20250802.orig/misc/gen-pkgconfig.in	2024-09-28 22:21:23.000000000 +0200
++++ ncurses-6.5-20250802/misc/gen-pkgconfig.in	2025-08-10 19:06:30.939836213 +0200
+@@ -71,19 +71,9 @@
+ MENU_LIBRARY="${MENU_NAME}@USE_ARG_SUFFIX@"
+ PANEL_LIBRARY="${PANEL_NAME}@USE_ARG_SUFFIX@"
+ 
+-CFLAGS="@PKG_CFLAGS@"
+-if [ "$includedir" != "/usr/include" ]; then
+-	includetop=`echo "$includedir" | sed -e 's,/include/[^/]*$,/include,'`
+-	[ "$includetop" = "/usr/include" ] && includetop="$includedir"
+-	CFLAGS="$CFLAGS -I\${includedir}"
+-	if [ "x$includetop" != "x$includedir" ]
+-	then
+-		CFLAGS="$CFLAGS -I${includetop}"
+-	fi
+-fi
+-
++CFLAGS='-I${includedir}'
+ lib_flags=
+-for opt in -L$libdir @EXTRA_PKG_LDFLAGS@ @LIBS@
++for opt in @EXTRA_PKG_LDFLAGS@ @LIBS@
+ do
+ 	case $opt in
+ 	-l*) # LIBS is handled specially below
+diff -ru ncurses-6.5-20250802.orig/misc/Makefile.in ncurses-6.5-20250802/misc/Makefile.in
+--- ncurses-6.5-20250802.orig/misc/Makefile.in	2025-07-12 12:48:01.000000000 +0200
++++ ncurses-6.5-20250802/misc/Makefile.in	2025-08-10 19:07:22.835775165 +0200
+@@ -83,7 +83,7 @@
+ @MAKE_DATABASE@TICFILE		= $(DESTDIR)$(ticfile@MERGE_PREFIX@)
+ @MAKE_DATABASE@TABSETDIR	= $(DESTDIR)$(tabsetdir@MERGE_PREFIX@)
+ 
+-@MAKE_PC_FILES@INSTALL_CONFIG	= $(DESTDIR)$(PKG_CONFIG_LIBDIR@MERGE_PREFIX@)
++@MAKE_PC_FILES@INSTALL_CONFIG	= $(DESTDIR)/lib/pkgconfig
+ 
+ ################################################################################
+ 
+Only in ncurses-6.5-20250802.orig/misc: Makefile.in.rej
+diff -ru ncurses-6.5-20250802.orig/misc/ncurses-config.in ncurses-6.5-20250802/misc/ncurses-config.in
+--- ncurses-6.5-20250802.orig/misc/ncurses-config.in	2024-09-28 22:18:19.000000000 +0200
++++ ncurses-6.5-20250802/misc/ncurses-config.in	2025-08-10 19:06:30.939952317 +0200
+@@ -110,7 +110,7 @@
+ # There is no portable way to find the list of standard library directories.
+ # Require a POSIX shell anyway, to keep this simple.
+ lib_flags=
+-for opt in -L$libdir @EXTRA_PKG_LDFLAGS@ $LIBS
++for opt in @EXTRA_PKG_LDFLAGS@ $LIBS
+ do
+ 	case $opt in
+ 	-specs*) # ignore linker specs-files which were used to build library
