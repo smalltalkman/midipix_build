@@ -1,6 +1,15 @@
 diff -ru thttpd-2.29.orig/extras/Makefile.in thttpd-2.29/extras/Makefile.in
 --- thttpd-2.29.orig/extras/Makefile.in	2005-05-20 21:10:25.000000000 +0200
-+++ thttpd-2.29/extras/Makefile.in	2020-05-23 22:44:07.959407057 +0200
++++ thttpd-2.29/extras/Makefile.in	2025-09-25 19:20:12.902988680 +0200
+@@ -36,7 +36,7 @@
+ DEFS =		@DEFS@
+ INCLS =		-I..
+ CFLAGS =	$(CCOPT) $(DEFS) $(INCLS)
+-STATICFLAG =	@V_STATICFLAG@
++STATICFLAG =
+ LDFLAGS =	@LDFLAGS@
+ LIBS =		@LIBS@
+ NETLIBS =	@V_NETLIBS@
 @@ -68,7 +68,6 @@
  install:	all
  	rm -f $(BINDIR)/makeweb $(BINDIR)/htpasswd $(BINDIR)/syslogtocern
@@ -11,7 +20,7 @@ diff -ru thttpd-2.29.orig/extras/Makefile.in thttpd-2.29/extras/Makefile.in
  	cp syslogtocern $(BINDIR)/syslogtocern
 diff -ru thttpd-2.29.orig/Makefile.in thttpd-2.29/Makefile.in
 --- thttpd-2.29.orig/Makefile.in	2005-05-20 21:10:24.000000000 +0200
-+++ thttpd-2.29/Makefile.in	2020-05-23 22:45:10.811407438 +0200
++++ thttpd-2.29/Makefile.in	2025-09-25 19:16:00.511423083 +0200
 @@ -110,11 +110,11 @@
  
  installthis:
