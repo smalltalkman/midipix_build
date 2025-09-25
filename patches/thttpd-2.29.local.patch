@@ -1,6 +1,37 @@
+diff -ru thttpd-2.29.orig/cgi-src/Makefile.in thttpd-2.29/cgi-src/Makefile.in
+--- thttpd-2.29.orig/cgi-src/Makefile.in	2005-05-20 21:10:25.000000000 +0200
++++ thttpd-2.29/cgi-src/Makefile.in	2025-09-25 21:12:17.207014505 +0200
+@@ -35,7 +35,7 @@
+ DEFS =		@DEFS@
+ INCLS =		-I..
+ CFLAGS =	$(CCOPT) $(DEFS) $(INCLS)
+-LDFLAGS =	@LDFLAGS@ @V_STATICFLAG@
++LDFLAGS =	@LDFLAGS@
+ LIBS =		@LIBS@
+ NETLIBS =	@V_NETLIBS@
+ INSTALL =	@INSTALL@
+@@ -51,15 +51,15 @@
+ all:		redirect ssi phf
+ 
+ redirect:	redirect.o
+-	$(CC) $(LDFLAGS) $(STATICFLAG) redirect.o $(LIBS) -o redirect
++	$(CC) $(LDFLAGS) redirect.o $(LIBS) -o redirect
+ 
+ ssi:		ssi.o ../match.o
+-	$(CC) $(LDFLAGS) $(STATICFLAG) ssi.o ../match.o $(LIBS) -o ssi
++	$(CC) $(LDFLAGS) ssi.o ../match.o $(LIBS) -o ssi
+ 
+ ssi.o:		../match.h
+ 
+ phf:		phf.o
+-	$(CC) $(LDFLAGS) $(STATICFLAG) phf.o $(LIBS) -o phf
++	$(CC) $(LDFLAGS) phf.o $(LIBS) -o phf
+ 
+ strerror.o:
+ 	@rm -f strerror.o
 diff -ru thttpd-2.29.orig/extras/Makefile.in thttpd-2.29/extras/Makefile.in
 --- thttpd-2.29.orig/extras/Makefile.in	2005-05-20 21:10:25.000000000 +0200
-+++ thttpd-2.29/extras/Makefile.in	2025-09-25 19:20:12.902988680 +0200
++++ thttpd-2.29/extras/Makefile.in	2025-09-25 21:10:07.441859846 +0200
 @@ -36,7 +36,7 @@
  DEFS =		@DEFS@
  INCLS =		-I..
@@ -20,7 +51,7 @@ diff -ru thttpd-2.29.orig/extras/Makefile.in thttpd-2.29/extras/Makefile.in
  	cp syslogtocern $(BINDIR)/syslogtocern
 diff -ru thttpd-2.29.orig/Makefile.in thttpd-2.29/Makefile.in
 --- thttpd-2.29.orig/Makefile.in	2005-05-20 21:10:24.000000000 +0200
-+++ thttpd-2.29/Makefile.in	2025-09-25 19:16:00.511423083 +0200
++++ thttpd-2.29/Makefile.in	2025-09-25 21:10:07.441980194 +0200
 @@ -110,11 +110,11 @@
  
  installthis:
