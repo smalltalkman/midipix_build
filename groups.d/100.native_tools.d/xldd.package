@@ -1,0 +1,7 @@
+: ${PKG_XLDD_URLS_GIT:="xldd=https://git.midipix.org/xldd@main"};
+: ${PKG_XLDD_CFLAGS_CONFIGURE:="-I${PREFIX_NATIVE}/include -DPERK_PRE_ALPHA"};
+: ${PKG_XLDD_CONFIGURE_ARGS:="--host=${DEFAULT_TARGET} --prefix= --target=${DEFAULT_TARGET}"};
+
+ex_pkg_register "xldd" "${RTL_FILEOP_SOURCE_FNAME}" "native_tools";
+
+# vim:filetype=sh textwidth=0
