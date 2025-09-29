@@ -1,0 +1,5 @@
+: ${PKG_XLDD_MINIPIX_INHERIT_FROM:=xldd};
+
+ex_pkg_register "xldd_minipix" "${RTL_FILEOP_SOURCE_FNAME}" "minipix";
+
+# vim:filetype=sh textwidth=0
