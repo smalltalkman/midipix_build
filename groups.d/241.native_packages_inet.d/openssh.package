@@ -1,6 +1,6 @@
 : ${PKG_OPENSSH_DEPENDS:="libressl libz libmd"};
-: ${PKG_OPENSSH_SHA256SUM:=021a2e709a0edf4250b1256bd5a9e500411a90dddabea830ed59cef90eb9d85c};
-: ${PKG_OPENSSH_VERSION:=10.0p2};
+: ${PKG_OPENSSH_SHA256SUM:=ccc42c0419937959263fa1dbd16dafc18c56b984c03562d2937ce56a60f798b2};
+: ${PKG_OPENSSH_VERSION:=10.2p1};
 : ${PKG_OPENSSH_URL:=https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-${PKG_OPENSSH_VERSION}.tar.gz};
 : ${PKG_OPENSSH_CFLAGS_CONFIGURE_EXTRA:="-DUSE_PIPES"};
 : ${PKG_OPENSSH_CONFIGURE_ARGS_EXTRA:="--without-libedit --without-shadow"};
@@ -8,7 +8,7 @@
 : ${PKG_OPENSSH_INSTALL_TARGET:=install-nokeys};
 : ${PKG_OPENSSH_MAKEFLAGS_INSTALL_EXTRA:=STRIP_OPT=};
 : ${PKG_OPENSSH_ENV_VARS_EXTRA:="LIBEDIT=-ledit -ltinfo"};
-: ${PKG_OPENSSH_SUBDIR:=openssh-10.0p1};
+: ${PKG_OPENSSH_SUBDIR:=openssh-10.2p1};
 
 ex_pkg_register "openssh" "${RTL_FILEOP_SOURCE_FNAME}" "native_packages";
 
