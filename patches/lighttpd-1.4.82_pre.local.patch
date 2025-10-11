@@ -1,0 +1,23 @@
+diff -ru lighttpd-1.4.82.orig/configure.ac lighttpd-1.4.82/configure.ac
+--- lighttpd-1.4.82.orig/configure.ac	2025-09-12 21:08:20.000000000 +0200
++++ lighttpd-1.4.82/configure.ac	2025-10-11 16:06:39.178852895 +0200
+@@ -61,7 +61,6 @@
+ 
+ dnl Checks for programs.
+ AC_PROG_CC
+-AC_PROG_CC_C99
+ AX_PROG_CC_FOR_BUILD
+ LT_PATH_LD
+ AC_PROG_INSTALL
+diff -ru lighttpd-1.4.82.orig/src/Makefile.am lighttpd-1.4.82/src/Makefile.am
+--- lighttpd-1.4.82.orig/src/Makefile.am	2025-09-12 21:08:20.000000000 +0200
++++ lighttpd-1.4.82/src/Makefile.am	2025-10-11 16:06:51.661573090 +0200
+@@ -105,7 +105,7 @@
+ lib_LTLIBRARIES += liblightcomp.la
+ liblightcomp_la_SOURCES=$(common_src)
+ liblightcomp_la_CFLAGS= $(FAM_CFLAGS) $(LIBUNWIND_CFLAGS)
+-liblightcomp_la_LDFLAGS = $(common_ldflags) --export-all-symbols
++liblightcomp_la_LDFLAGS = $(common_ldflags)
+ liblightcomp_la_LIBADD = $(PCRE_LIB) $(CRYPTO_LIB) $(FAM_LIBS) $(LIBUNWIND_LIBS) $(ATTR_LIB) $(WS2_32_LIB)
+ common_libadd = liblightcomp.la
+ if !LIGHTTPD_STATIC
